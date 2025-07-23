@@ -176,9 +176,9 @@ createVolumeInExistingFIle::createVolumeInExistingFIle( QWidget * parent ) :
 
 	this->displayWarning( false ) ;
 
-	connect( m_ui->cbShowPassword,&QCheckBox::stateChanged,[ this ]( int s ){
+	utility::connectQCheckBox( m_ui->cbShowPassword,[ this ]( bool s ){
 
-		if( s == Qt::Checked ){
+		if( s ){
 
 			m_ui->lineEditPassword->setEchoMode( QLineEdit::Normal ) ;
 		}else{

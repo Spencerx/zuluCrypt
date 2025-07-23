@@ -48,7 +48,11 @@ createfile::createfile( QWidget * parent,std::function< void( const QString& ) >
 
 	m_ui->pbOpenFolder->setIcon( QIcon( ":/folder.png" ) ) ;
 
-	connect( m_ui->checkBoxNoRandomData,&QCheckBox::stateChanged,this,&createfile::warnAboutRandomData ) ;
+	utility::connectQCheckBox( m_ui->checkBoxNoRandomData,[ this ]( bool s ){
+
+		this->warnAboutRandomData( s ) ;
+	} ) ;
+
 	connect( m_ui->pbCancel,&QPushButton::clicked,this,&createfile::pbCancel )  ;
 	connect( m_ui->pbOpenFolder,&QPushButton::clicked,this,&createfile::pbOpenFolder ) ;
 	connect( m_ui->pbCreate,&QPushButton::clicked,this,&createfile::pbCreate ) ;
@@ -142,9 +146,9 @@ void createfile::showUI()
 	this->show() ;
 }
 
-void createfile::warnAboutRandomData( int e )
+void createfile::warnAboutRandomData( bool e )
 {
-	if( e == Qt::Checked ){
+	if( e  ){
 
 		DialogMsg msg( this ) ;
 

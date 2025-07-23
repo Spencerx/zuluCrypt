@@ -116,15 +116,23 @@ keyDialog::keyDialog( QWidget * parent,
 	connect( m_ui->pbOpen,&QPushButton::clicked,this,&keyDialog::openVolume ) ;
 	connect( m_ui->pbkeyOption,&QPushButton::clicked,this,&keyDialog::pbkeyOption ) ;
 	connect( m_ui->pbOpenMountPoint,&QPushButton::clicked,this,&keyDialog::pbMountPointPath ) ;
-	connect( m_ui->checkBoxOpenReadOnly,&QCheckBox::stateChanged,this,&keyDialog::cbMountReadOnlyStateChanged ) ;
 	connect( m_ui->cbKeyType,cc,this,&keyDialog::cbActicated ) ;
-	connect( m_ui->checkBoxVisibleKey,&QCheckBox::stateChanged,this,&keyDialog::cbVisibleKeyStateChanged ) ;
 
 	m_ui->pbOpenMountPoint->setVisible( false ) ;
 
-	connect( m_ui->checkBoxShareMountPoint,&QCheckBox::stateChanged,[]( int s ){
+	utility::connectQCheckBox( m_ui->checkBoxVisibleKey,[ this ]( bool s ){
 
-		utility::mountWithSharedMountPoint( s == Qt::Checked ) ;
+		this->cbVisibleKeyStateChanged( s ) ;
+	} ) ;
+
+	utility::connectQCheckBox( m_ui->checkBoxOpenReadOnly,[ this ]( bool s ){
+
+		this->cbMountReadOnlyStateChanged( s ) ;
+	} ) ;
+
+	utility::connectQCheckBox( m_ui->checkBoxShareMountPoint,[]( bool s ){
+
+		utility::mountWithSharedMountPoint( s ) ;
 	} ) ;
 
 	const auto& m = e.mountPoint() ;
@@ -196,10 +204,10 @@ bool keyDialog::eventFilter( QObject * watched,QEvent * event )
 	return utility::eventFilter( this,watched,event,[ this ](){ this->pbCancel() ; } ) ;
 }
 
-void keyDialog::cbMountReadOnlyStateChanged( int state )
+void keyDialog::cbMountReadOnlyStateChanged( bool state )
 {
 	m_ui->checkBoxOpenReadOnly->setEnabled( false ) ;
-	m_ui->checkBoxOpenReadOnly->setChecked( utility::setOpenVolumeReadOnly( this,state == Qt::Checked,QString( "zuluMount-gui" ) ) ) ;
+	m_ui->checkBoxOpenReadOnly->setChecked( utility::setOpenVolumeReadOnly( this,state,QString( "zuluMount-gui" ) ) ) ;
 	m_ui->checkBoxOpenReadOnly->setEnabled( true ) ;
 
 	if( m_ui->lineEditKey->text().isEmpty() ){
@@ -236,13 +244,13 @@ void keyDialog::pbMountPointPath()
 	}
 }
 
-void keyDialog::cbVisibleKeyStateChanged( int s )
+void keyDialog::cbVisibleKeyStateChanged( bool s )
 {
 	auto m = m_ui->cbKeyType->currentIndex() ;
 
 	if( m == keyDialog::Key || m == keyDialog::yubikey ){
 
-		if( s == Qt::Checked ){
+		if( s ){
 
 			m_ui->lineEditKey->setEchoMode( QLineEdit::Normal ) ;
 		}else{
@@ -999,17 +1007,17 @@ void keyDialog::veraCryptVolumeType::setValues( QCheckBox * vc,QCheckBox * sys,c
 		m_veraCryptSystem->setChecked( false ) ;
 	}
 
-	connect( m_veraCrypt,&QCheckBox::stateChanged,[ this ]( int s ){
+	utility::connectQCheckBox( m_veraCrypt,[ this ]( bool s ){
 
-		if( s == Qt::Checked ){
+		if( s ){
 
 			m_veraCryptSystem->setChecked( false ) ;
 		}
 	} ) ;
 
-	connect( m_veraCryptSystem,&QCheckBox::stateChanged,[ this ]( int s ){
+	utility::connectQCheckBox( m_veraCryptSystem,[ this ]( bool s ){
 
-		if( s == Qt::Checked ){
+		if( s ){
 
 			m_veraCrypt->setChecked( false ) ;
 		}

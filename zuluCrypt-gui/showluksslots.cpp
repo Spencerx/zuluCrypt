@@ -59,9 +59,9 @@ showLUKSSlots::showLUKSSlots( QWidget * parent,const QString& p,std::function< v
 
 	m_ui->tableWidget->setContextMenuPolicy( Qt::CustomContextMenu ) ;
 
-	connect( m_ui->checkBox,&QCheckBox::stateChanged,[ this ]( int s ){
+	utility::connectQCheckBox( m_ui->checkBox,[ this ]( bool s ){
 
-		utility::showOnlyOccupiedSlots( s != Qt::Unchecked ) ;
+		utility::showOnlyOccupiedSlots( s ) ;
 
 		this->showData() ;
 	} ) ;

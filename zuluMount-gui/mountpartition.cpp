@@ -62,8 +62,16 @@ mountPartition::mountPartition( QWidget * parent,QTableWidget * table,std::funct
 	connect( m_ui->pbMount,&QPushButton::clicked,this,&mountPartition::pbMount ) ;
 	connect( m_ui->pbMountFolder,&QPushButton::clicked,this,&mountPartition::pbOpenMountPath ) ;
 	connect( m_ui->pbCancel,&QPushButton::clicked,this,&mountPartition::pbCancel ) ;
-	connect( m_ui->checkBox,&QCheckBox::stateChanged,this,&mountPartition::stateChanged ) ;
-	connect( m_ui->checkBoxMountReadOnly,&QCheckBox::stateChanged,this,&mountPartition::checkBoxReadOnlyStateChanged ) ;
+
+	utility::connectQCheckBox( m_ui->checkBox,[ this ]( bool s ){
+
+		this->stateChanged( s ) ;
+	} ) ;
+
+	utility::connectQCheckBox( m_ui->checkBoxMountReadOnly,[ this ]( bool s ){
+
+		this->checkBoxReadOnlyStateChanged( s ) ;
+	} ) ;
 
 	m_ui->pbMountFolder->setIcon( QIcon( ":/folder.png" ) ) ;
 
@@ -102,10 +110,10 @@ bool mountPartition::eventFilter( QObject * watched,QEvent * event )
 	return utility::eventFilter( this,watched,event,[ this ](){ this->HideUI() ; } ) ;
 }
 
-void mountPartition::checkBoxReadOnlyStateChanged( int state )
+void mountPartition::checkBoxReadOnlyStateChanged( bool checked )
 {
 	m_ui->checkBoxMountReadOnly->setEnabled( false ) ;
-	m_ui->checkBoxMountReadOnly->setChecked( utility::setOpenVolumeReadOnly( this,state == Qt::Checked,"zuluMount-gui" ) ) ;
+	m_ui->checkBoxMountReadOnly->setChecked( utility::setOpenVolumeReadOnly( this,checked,"zuluMount-gui" ) ) ;
 
 	m_ui->checkBoxMountReadOnly->setEnabled( true ) ;
 	if( m_ui->lineEdit->text().isEmpty() ){
@@ -343,10 +351,8 @@ void mountPartition::AutoMount( const volumeProperty& e )
 	this->pbMount() ;
 }
 
-void mountPartition::stateChanged( int i )
+void mountPartition::stateChanged( bool )
 {
-	Q_UNUSED( i )
-
 	m_ui->checkBox->setEnabled( false ) ;
 
 	if( m_ui->checkBox->isChecked() ){

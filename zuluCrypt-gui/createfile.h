@@ -47,7 +47,7 @@ public:
 signals :
 	void sendProgress( QString,QString,QString,QString,int ) ;
 private:
-	void warnAboutRandomData( int ) ;
+	void warnAboutRandomData( bool ) ;
 	void HideUI() ;
 	void showUI() ;
 	void pbOpenFolder() ;

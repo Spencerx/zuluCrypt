@@ -43,9 +43,9 @@ warnWhenExtendingContainerFile::warnWhenExtendingContainerFile( QWidget * parent
 		this->Hide() ;
 	} ) ;
 
-	connect( m_ui->checkBox,&QCheckBox::stateChanged,[]( int s ){
+	utility::connectQCheckBox( m_ui->checkBox,[]( bool s ){
 
-		utility::showWarningOnExtendingCoverFile( s == Qt::Unchecked ) ;
+		utility::showWarningOnExtendingCoverFile( s ) ;
 	} ) ;
 
 	this->show() ;

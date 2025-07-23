@@ -70,7 +70,7 @@ signals:
 	void mounted( QString ) ;
 	void cryptoOpen( QString ) ;
 private:
-	void cbVisibleKeyStateChanged( int ) ;
+	void cbVisibleKeyStateChanged( bool ) ;
 	void cbActicated( int ) ;
 	void pbkeyOption() ;
 	void pbMountPointPath() ;
@@ -82,7 +82,7 @@ private:
 	void pbCancel() ;
 	void Plugin() ;
 	void KeyFile() ;
-	void cbMountReadOnlyStateChanged( int ) ;
+	void cbMountReadOnlyStateChanged( bool ) ;
 	void encryptedFolderMount() ;
 	class veraCryptVolumeType{
 	public:

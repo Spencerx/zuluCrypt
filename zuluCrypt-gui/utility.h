@@ -66,6 +66,7 @@
 #include <QLabel>
 #include <QDateTime>
 #include <QTime>
+#include <QCheckBox>
 
 #include <poll.h>
 #include <fcntl.h>
@@ -80,7 +81,21 @@ namespace utility
 	{
 		QObject::connect( sender,signal,receiver,slot,Qt::QueuedConnection ) ;
 	}
+	template< typename Function >
+	void connectQCheckBox( QCheckBox * cb,Function function )
+	{
+		#if QT_VERSION < QT_VERSION_CHECK( 6,7,0 )
+			QObject::connect( cb,&QCheckBox::stateChanged,[ function ]( int s ){
 
+				function( s == static_cast< int >( Qt::CheckState::Checked ) ) ;
+			} ) ;
+		#else
+			QObject::connect( cb,&QCheckBox::checkStateChanged,[ function ]( Qt::CheckState s ){
+
+				function( s == Qt::CheckState::Checked ) ;
+			} ) ;
+		#endif
+	}
 	class label
 	{
 	public:

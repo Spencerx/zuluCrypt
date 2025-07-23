@@ -60,7 +60,7 @@ public slots:
 	void ShowUI( QString ) ;
 private:
 	void openVolume( const QString& ) ;
-	void cbVisibleKeyStateChanged( int ) ;
+	void cbVisibleKeyStateChanged( bool ) ;
 	void cbVolumeType( int ) ;
 	void cbActicated( int ) ;
 	void pbKeyOption() ;
@@ -74,7 +74,7 @@ private:
 	void pluginOption() ;
 	void file_path( void  ) ;
 	void mountPointPath( QString ) ;
-	void cbStateChanged( int ) ;
+	void cbStateChanged( bool ) ;
 	void autoSetPassword( const QString& ) ;
 	void keyAndKeyFile() ;
 	void tcryptGui() ;

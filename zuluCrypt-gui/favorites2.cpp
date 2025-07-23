@@ -355,7 +355,7 @@ favorites2::favorites2( QWidget * parent,
 
 	m_ui->lineEditPassword->setEchoMode( QLineEdit::Password ) ;
 
-	connect( m_ui->cbShowPassword,&QCheckBox::stateChanged,[ this ]( int s ){
+	utility::connectQCheckBox( m_ui->cbShowPassword,[ this ]( bool s ){
 
 		if( s ){
 

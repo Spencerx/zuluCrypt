@@ -62,11 +62,11 @@ signals:
 	void cancel() ;
 	void openMountPoint( QString ) ;
 private:
-	void stateChanged( int ) ;
+	void stateChanged( bool ) ;
 	void pbMount() ;
 	void pbCancel() ;
 	void pbOpenMountPath() ;
-	void checkBoxReadOnlyStateChanged( int ) ;
+	void checkBoxReadOnlyStateChanged( bool ) ;
 	void reportError( utility::Task& ) ;
 	void enableAll() ;
 	void disableAll() ;

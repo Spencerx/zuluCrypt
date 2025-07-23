@@ -97,15 +97,23 @@ passwordDialog::passwordDialog( QTableWidget * table,
 	connect( m_ui->PushButtonVolumePath,&QPushButton::clicked,this,&passwordDialog::file_path ) ;
 	connect( m_ui->pushButtonPassPhraseFromFile,&QPushButton::clicked,this,&passwordDialog::clickedPassPhraseFromFileButton ) ;
 	connect( m_ui->OpenVolumePath,&QLineEdit::textChanged,this,&passwordDialog::mountPointPath ) ;
-	connect( m_ui->checkBoxReadOnly,&QCheckBox::stateChanged,this,&passwordDialog::cbStateChanged ) ;
 	connect( m_ui->pbKeyOption,&QPushButton::clicked,this,&passwordDialog::pbKeyOption ) ;
 	connect( m_ui->cbKeyType,cc,this,&passwordDialog::cbActicated ) ;
 	connect( m_ui->cbVolumeType,cc,this,&passwordDialog::cbVolumeType ) ;
-	connect( m_ui->checkBoxVisibleKey,&QCheckBox::stateChanged,this,&passwordDialog::cbVisibleKeyStateChanged ) ;
 
-	connect( m_ui->cbShareMountPoint,&QCheckBox::stateChanged,[]( int s ){
+	utility::connectQCheckBox( m_ui->checkBoxReadOnly,[ this ]( bool s ){
 
-		utility::mountWithSharedMountPoint( s == Qt::Checked ) ;
+		this->cbStateChanged( s ) ;
+	} ) ;
+
+	utility::connectQCheckBox( m_ui->checkBoxVisibleKey,[ this ]( bool s ){
+
+		this->cbVisibleKeyStateChanged( s ) ;
+	} ) ;
+
+	utility::connectQCheckBox( m_ui->cbShareMountPoint,[]( bool s ){
+
+		utility::mountWithSharedMountPoint( s ) ;
 	} ) ;
 
 	connect( m_ui->PushButtonOpen,&QPushButton::clicked,[ this ](){
@@ -304,10 +312,10 @@ void passwordDialog::tcryptGui()
 	} ) ;
 }
 
-void passwordDialog::cbStateChanged( int state )
+void passwordDialog::cbStateChanged( bool state )
 {
 	m_ui->checkBoxReadOnly->setEnabled( false ) ;
-	m_ui->checkBoxReadOnly->setChecked( utility::setOpenVolumeReadOnly( this,state == Qt::Checked,"zuluCrypt-gui" ) ) ;
+	m_ui->checkBoxReadOnly->setChecked( utility::setOpenVolumeReadOnly( this,state,"zuluCrypt-gui" ) ) ;
 	m_ui->checkBoxReadOnly->setEnabled( true ) ;
 }
 
@@ -389,11 +397,11 @@ void passwordDialog::ShowUI( QString dev )
 	this->ShowUI( dev,m_point ) ;
 }
 
-void passwordDialog::cbVisibleKeyStateChanged( int s )
+void passwordDialog::cbVisibleKeyStateChanged( bool s )
 {
 	if( m_ui->cbKeyType->currentIndex() == passwordDialog::key ){
 
-		if( s == Qt::Checked ){
+		if( s ){
 
 			m_ui->PassPhraseField->setEchoMode( QLineEdit::Normal ) ;
 		}else{
