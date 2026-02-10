@@ -1,12 +1,13 @@
-zuluCrypt
-==========
+# zuluCrypt
+Website: ![zuluCrypt](https://mhogomchungu.github.io/zuluCrypt)
 
-zuluCrypt is a simple,feature rich and powerful solution for hard drives encryption.
+---
 
-Project's frontpage is at: https://mhogomchungu.github.io/zuluCrypt
+**zuluCrypt** is a simple yet powerful and feature rich program for hard drive encryption.
 
-bugs,wishes and comments can be reported at: https://github.com/mhogomchungu/zuluCrypt/issues or
-to my private email address at: mhogomchungu@gmail.com
+Bugs, wishes and comments can be reported at: [Issues](https://github.com/mhogomchungu/zuluCrypt/issues)
 
+You can also reach the maintainer via private email address at: 
+mhogomchungu@gmail.com
 
 [![Build Status](https://api.travis-ci.org/mhogomchungu/zuluCrypt.svg?branch=master)](https://travis-ci.org/mhogomchungu/zuluCrypt)
