@@ -180,7 +180,9 @@ string_t zuluCryptUpdatePlainDmcryptProperties( const char * e )
 		s = 3 ;
 	}
 
-	for( size_t m = 1 ; m < n ; m++ ){
+	size_t m ;
+
+	for( m = 1 ; m < n ; m++ ){
 
 		if( m == s ){
 

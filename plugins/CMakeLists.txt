@@ -12,12 +12,10 @@ add_subdirectory( keydialog-qt )
 
 add_definitions( -D_FILE_OFFSET_BITS=64 -Wall -pedantic -I${PROJECT_BINARY_DIR}/plugins -I${PROJECT_BINARY_DIR} )
 
-if( CMAKE_COMPILER_IS_GNUCC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 10.0.0)
-	set( CMAKE_CXX_STANDARD 14 )
-	MESSAGE( STATUS "Setting C++ version to C++14" )
+if( ${CMAKE_VERSION} VERSION_LESS "3.1.0" )
+	add_definitions( -std=c++14 )
 else()
 	set( CMAKE_CXX_STANDARD 14 )
-	MESSAGE( STATUS "Setting C++ version to C++14" )
 endif()
 
 set( CMAKE_CXX_STANDARD_REQUIRED ON )

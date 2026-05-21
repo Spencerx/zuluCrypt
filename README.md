@@ -9,5 +9,3 @@ Bugs, wishes and comments can be reported at: [Issues](https://github.com/mhogom
 
 You can also reach the maintainer via private email address at: 
 mhogomchungu@gmail.com
-
-[![Build Status](https://api.travis-ci.org/mhogomchungu/zuluCrypt.svg?branch=master)](https://travis-ci.org/mhogomchungu/zuluCrypt)

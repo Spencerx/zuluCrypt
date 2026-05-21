@@ -530,9 +530,13 @@ void zuluCrypt::updateTrayContextMenu()
 
 	m_trayIconMenu.setFont( this->font() ) ;
 
-	m_trayIconMenu.addAction( tr( "Show/Hide" ),this,&zuluCrypt::showTrayGUI ) ;
+	auto ac = m_trayIconMenu.addAction( tr( "Show/Hide" ) ) ;
 
-	m_trayIconMenu.addAction( tr( "Quit" ),this,&zuluCrypt::closeApplication0 ) ;
+	QObject::connect( ac,&QAction::triggered,this,&zuluCrypt::showTrayGUI ) ;
+
+	ac = m_trayIconMenu.addAction( tr( "Quit" ) ) ;
+
+	QObject::connect( ac,&QAction::triggered,this,&zuluCrypt::closeApplication0 ) ;
 
 	m_trayIcon.setContextMenu( &m_trayIconMenu ) ;
 }

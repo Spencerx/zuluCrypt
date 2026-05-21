@@ -922,7 +922,7 @@ static __inline__ int StringPrefixNotEqual( const char * x,const char * y )
 
 static __inline__ ssize_t StringHasComponent_1( const char * x,const char * y )
 {
-	char * e ;
+	const char * e ;
 	if( x == NULL || y == NULL ){
 		return -1 ;
 	}else{

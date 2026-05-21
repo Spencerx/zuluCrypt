@@ -349,3 +349,6 @@ version 7.1.0
 -- Fix a regression that prevented a password with non ascii character to no longer work.
 -- Fix a bug that prevented some operations when zuluCrypt-cli was invoked with sudo.
 -- Fix a zuluPolkit crash when it is invoked with a newer version of polkit.
+
+version 7.1.1
+-- Maintance release to fix a build issue with recent versions of cmake.
